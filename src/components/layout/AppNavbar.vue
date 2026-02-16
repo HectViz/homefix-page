@@ -45,9 +45,20 @@ const handleNavClick = (id: string) => {
         
         <v-btn
           color="primary"
-          variant="flat"
+          variant="outlined"
           size="large"
           class="ml-4"
+          to="/login"
+        >
+          Iniciar Sesión
+        </v-btn>
+        
+        <v-btn
+          color="primary"
+          variant="flat"
+          size="large"
+          class="ml-2"
+          to="/login"
         >
           Comenzar
         </v-btn>
