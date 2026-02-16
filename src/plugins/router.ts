@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { authGuard } from '@/router/guards'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -8,6 +9,35 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/LandingView.vue'),
     meta: {
       title: 'HomeFix - Servicios Técnicos Inteligentes'
+    }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/auth/LoginView.vue'),
+    meta: {
+      title: 'Iniciar Sesión - HomeFix',
+      requiresGuest: true
+    }
+  },
+  {
+    path: '/dashboard/technician',
+    name: 'TechnicianDashboard',
+    component: () => import('@/views/dashboard/TechnicianDashboard.vue'),
+    meta: {
+      title: 'Dashboard Técnico - HomeFix',
+      requiresAuth: true,
+      role: 'technician'
+    }
+  },
+  {
+    path: '/dashboard/client',
+    name: 'ClientDashboard',
+    component: () => import('@/views/dashboard/ClientDashboard.vue'),
+    meta: {
+      title: 'Dashboard Cliente - HomeFix',
+      requiresAuth: true,
+      role: 'client'
     }
   }
 ]
@@ -28,6 +58,8 @@ const router = createRouter({
     }
   }
 })
+
+router.beforeEach(authGuard)
 
 router.beforeEach((to, from, next) => {
   document.title = (to.meta.title as string) || 'HomeFix'
